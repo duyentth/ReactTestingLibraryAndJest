@@ -1,13 +1,18 @@
 import { screen, render, within } from "@testing-library/react";
 import UserList from "./UserList";
 
-test("one user per row", () => {
-    //render UserList component
+const renderComponent = () => {
     const users = [
         { name: "duyen", email: "duyen@gmail.com" },
         { name: "kelly", email: "Kelly@gmail.com" },
     ];
     render(<UserList users={users} />);
+    return { users };
+};
+
+test("one user per row", () => {
+    //render UserList component
+    renderComponent();
 
     //Find all row in the table
     //screen.logTestingPlaygroundURL();
@@ -21,16 +26,12 @@ test("one user per row", () => {
 
 test("show correctly name and email of each user", () => {
     //render UserList component with the given users list
-    const users = [
-        { name: "duyen", email: "duyen@gmail.com" },
-        { name: "kelly", email: "Kelly@gmail.com" },
-    ];
-    render(<UserList users = {users}/>);    
+    const { users } = renderComponent();
 
     //for each user, try to find the element by role with the same name and email in each row
     for (let user of users) {
-        const name = screen.getByRole("cell", {name: user.name})
-        const email = screen.getByRole("cell", {name: user.email});
+        const name = screen.getByRole("cell", { name: user.name });
+        const email = screen.getByRole("cell", { name: user.email });
         expect(name).toBeInTheDocument();
         expect(email).toBeInTheDocument();
     }

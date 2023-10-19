@@ -47,3 +47,24 @@ test("it calls onAddUser when the form is submitted", async () => {
         email: "duyen@gmail.com",
     });
 });
+
+test("name and email inputs are empty after form submitting", async () => {
+    render(<UserForm onAddUser={() => {}}/>);
+    const nameInput = screen.getByRole("textbox", {name: /name/i});
+    const emailInput = screen.getByRole("textbox", {name: /email/i});
+    const button = screen.getByRole("button");
+
+    await user.click(nameInput);
+    await user.keyboard("duyen");
+    
+    await user.click(emailInput);
+    await user.keyboard("duyen@gmail.com");
+
+    await user.click(button);
+
+    expect(nameInput).toHaveValue("");
+    expect(emailInput).toHaveValue("");
+
+
+
+});
