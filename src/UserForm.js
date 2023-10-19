@@ -9,15 +9,17 @@ const UserForm = ({ onAddUser }) => {
     return (
         <form onSubmit={onHandleSubmit}>
             <div>
-                <label>Name</label>
+                <label htmlFor="name">Name</label>
                 <input
+                    id="name"
                     value={user.name}
                     onChange={(e) => setUser({ ...user, name: e.target.value })}
                 />
             </div>
             <div>
-                <label>Email</label>
+                <label htmlFor="email">Enter Email</label>
                 <input
+                    id="email"
                     value={user.email}
                     onChange={(e) =>
                         setUser({ ...user, email: e.target.value })
